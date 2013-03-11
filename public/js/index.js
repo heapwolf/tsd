@@ -10,7 +10,7 @@ websocket(function(socket) {
     try { message = JSON.parse(message); } catch($) {}
 
     if (message.key) {
-      tmp = message;
+      cache[message.key].push(message.value);
     }
     else if (message.metrics) {
 
@@ -30,7 +30,8 @@ websocket(function(socket) {
 
   function metric(name) {
 
-    var values = cache[name] = [];
+    cache[name] = [];
+
     var last;
 
     var m = context.metric(function(start, stop, step, callback) {
@@ -39,16 +40,9 @@ websocket(function(socket) {
       if (isNaN(last)) last = start;
 
       socket.write(JSON.stringify({ key: name }));
-
-      var getNext = setInterval(function() {
-        if (tmp) {
-          values.push(tmp.value);
-          tmp = null;
-          clearInterval(getNext);
-          values = values.slice((start - stop) / step);
-          callback(null, values);
-        }
-      }, 16);
+      
+      cache[name] = cache[name].slice((start - stop) / step);
+      callback(null, cache[name]);
     }, name);
 
     return m;

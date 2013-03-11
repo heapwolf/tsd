@@ -1,6 +1,6 @@
 {
   "name": "tsd-web",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "spins up a server to receive time-series data via tcp streams and then graphs it in the browser via web-sockets",
   "main": "index.js",
   "scripts": {
