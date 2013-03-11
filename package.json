@@ -9,7 +9,8 @@
   "dependencies": {
     "ws": "*",
     "levelup": "*",
-    "st": "*"
+    "st": "*",
+    "event-stream": "*"
   },
   "repository": "",
   "author": "",
