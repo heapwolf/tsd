@@ -1,5 +1,5 @@
 {
-  "name": "tsd",
+  "name": "tsd-web",
   "version": "0.0.1",
   "description": "real-time time-series data pumped from tcp to a web interface",
   "main": "index.js",

@@ -1,5 +1,5 @@
 # NAME
-stshttp(3)
+tsd-web(3)
 
 # SYNOPSIS
 Spin up a quick server to visualize time series data.
@@ -8,7 +8,7 @@ Spin up a quick server to visualize time series data.
 Deadly simple. just specify where you want it and what keys it should care about.
 
 ```js
-var tsd = require('tsd');
+var tsd = require('tsd-web');
 
 tsd({
   ports: {

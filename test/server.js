@@ -1,8 +1,8 @@
 
 var net = require('net');
 
-var net = require('net');
 var x = 10;
+
 var client = net.connect({ port: 9099 }, function() {
 
   function write(json) {
