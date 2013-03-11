@@ -1,7 +1,7 @@
 {
   "name": "tsd-web",
   "version": "0.0.2",
-  "description": "real-time time-series data pumped from tcp to a web interface",
+  "description": "spins up a server to receive time-series data via tcp streams and then graphs it in the browser via web-sockets",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
