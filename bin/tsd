@@ -4,6 +4,6 @@ var stshttp = require('../lib');
 var net = require('net');
 
 stshttp({
-  http: 8080,
+  http: 80,
   tcp: 9099
 });
