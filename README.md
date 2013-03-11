@@ -15,33 +15,38 @@ tsd({
     http: 80,
     tcp: 9099
   },
-  keys: ['a', 'b', 'c', 'd']
+  keys: ['hello', 'goodbye', 'ohai', 'neat-stuff']
 });
 ```
 
-Start pumping data into it.
+Write some dummy data to the socket (LINE DELIMITED!).
 ```js
 var net = require('net');
 var x = 10;
 var client = net.connect({ port: 9099 }, function() {
+
+  function write(json) {
+    client.write(JSON.stringify(json) + '\n');
+  }
   
   setInterval(function() {
 
     x += x;
 
-    client.write(JSON.stringify({ key: 'a', value: Math.random() * x }) + '\n' );
-    client.write(JSON.stringify({ key: 'b', value: Math.random() * x }) + '\n' );
-    client.write(JSON.stringify({ key: 'c', value: Math.random() * x }) + '\n' );
-    client.write(JSON.stringify({ key: 'd', value: Math.random() * x }) + '\n' );
+    write({ key: 'hello',   value: Math.random() * x });
+    write({ key: 'goodbye', value: Math.random() * x });
+    write({ key: 'ohai', value: Math.random() * x });
+    write({ key: 'neat-stuff', value: Math.random() * x });
 
   }, 150);
+
 });
 ```
 
-![Loqui](/screenshot.png)
+# WUT?
+![screenshot](/screenshot.png)
 
 # TODO
 This is a work in progress. Pull requests welcome.
 
  - Provide a way to flush the cache.
- - 

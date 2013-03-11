@@ -1,25 +1,23 @@
 
 var net = require('net');
-var x = 0;
 
-setTimeout(function() {
+var net = require('net');
+var x = 10;
+var client = net.connect({ port: 9099 }, function() {
 
-  //
-  // start sending some silly metrics to the server.
-  //
-  //x += random()*9;
-  x=x+10;
+  function write(json) {
+    client.write(JSON.stringify(json) + '\n');
+  }
+  
+  setInterval(function() {
 
-  var client = net.connect({ port: 9099 }, function() {
-    
-    setInterval(function() {
+    x += x;
 
-      client.write(JSON.stringify({ key: 'hello',   value: Math.random()*x }) + '\n' );
-      client.write(JSON.stringify({ key: 'goodbye', value: Math.random()*x }) + '\n' );
-      client.write(JSON.stringify({ key: 'ohai', value: Math.random()*x }) + '\n' );
-      client.write(JSON.stringify({ key: 'neat-stuff', value: Math.random()*x }) + '\n' );
+    write({ key: 'hello',   value: Math.random() * x });
+    write({ key: 'goodbye', value: Math.random() * x });
+    write({ key: 'ohai', value: Math.random() * x });
+    write({ key: 'neat-stuff', value: Math.random() * x });
 
-    }, 150);
-  });
+  }, 150);
 
-}, 1000);
+});
