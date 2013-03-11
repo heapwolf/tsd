@@ -3,21 +3,17 @@ websocket(function(socket) {
 
   var cache = {};
   var metrics = [];
+  var keys = {};
   var tmp = null;
 
   socket.on('data', function(message) {
 
     try { message = JSON.parse(message); } catch($) {}
+    tmp = message;
 
-    if (message.key) {
-      tmp = message;
-    }
-    else if (message.metrics) {
-
-      message.metrics.forEach(function(name, index) {
-        metrics.push(metric(name));
-      });
-
+    if (!keys[message.key]) {
+      metrics.push(metric(message.key));
+      keys[message.key] = Date.now();
       render();
     }
   });
@@ -38,8 +34,6 @@ websocket(function(socket) {
       start = +start, stop = +stop;
       if (isNaN(last)) last = start;
 
-      socket.write(JSON.stringify({ key: name }));
-
       var getNext = setInterval(function() {
         if (tmp) {
           values.push(tmp.value);
@@ -55,7 +49,6 @@ websocket(function(socket) {
   }
 
   function render() {
-
     d3.select("#main").call(function(div) {
 
       div
