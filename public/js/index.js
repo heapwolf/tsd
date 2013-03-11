@@ -13,6 +13,7 @@ websocket(function(socket) {
 
     if (!keys[message.key]) {
       metrics.push(metric(message.key));
+      metrics.sort(function(a, b) { return a - b });
       keys[message.key] = Date.now();
       render();
     }
@@ -45,6 +46,7 @@ websocket(function(socket) {
       }, 16);
     }, name);
 
+    m.name = name;
     return m;
   }
 
