@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var stshttp = require('../lib');
+var net = require('net');
+
+stshttp({
+  ports: {
+    http: 80,
+    tcp: 9099
+  },
+  keys: ['hello', 'goodbye', 'ohai', 'neat-stuff']
+});
