@@ -11,11 +11,8 @@ Deadly simple. just specify where you want it and what keys it should care about
 var tsd = require('tsd-web');
 
 tsd({
-  ports: {
-    http: 80,
-    tcp: 9099
-  },
-  keys: ['hello', 'goodbye', 'ohai', 'neat-stuff']
+  http: 80,
+  tcp: 9099
 });
 ```
 
