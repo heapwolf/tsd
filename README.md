@@ -5,7 +5,7 @@ tsd-web(3)
 Spin up a quick server to visualize time series data.
 
 # USAGE
-Deadly simple. just specify where you want it and what keys it should care about.
+Deadly simple. just specify the ports you want it to listen on.
 
 ```js
 var tsd = require('tsd-web');
