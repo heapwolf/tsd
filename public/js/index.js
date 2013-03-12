@@ -4,12 +4,13 @@ websocket(function(socket) {
   var cache = {};
   var metrics = [];
   var keys = {};
-  var tmp = null;
 
   socket.on('data', function(message) {
 
     try { message = JSON.parse(message); } catch($) {}
-    tmp = message;
+
+    if (!cache[message.key]) cache[message.key] = [];
+    cache[message.key].push(message.value);
 
     if (!keys[message.key]) {
       metrics.push(metric(message.key));
@@ -27,7 +28,8 @@ websocket(function(socket) {
 
   function metric(name) {
 
-    var values = cache[name] = [];
+    cache[name] = [];
+
     var last;
 
     var m = context.metric(function(start, stop, step, callback) {
@@ -35,15 +37,10 @@ websocket(function(socket) {
       start = +start, stop = +stop;
       if (isNaN(last)) last = start;
 
-      var getNext = setInterval(function() {
-        if (tmp) {
-          values.push(tmp.value);
-          tmp = null;
-          clearInterval(getNext);
-          values = values.slice((start - stop) / step);
-          callback(null, values);
-        }
-      }, 16);
+      socket.write(JSON.stringify({ key: name }));
+      
+      cache[name] = cache[name].slice((start - stop) / step);
+      callback(null, cache[name]);
     }, name);
 
     m.name = name;

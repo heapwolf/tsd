@@ -1,7 +1,7 @@
 {
-  "name": "tsd",
-  "version": "0.0.1",
-  "description": "real-time time-series data pumped from tcp to a web interface",
+  "name": "tsd-web",
+  "version": "0.1.1",
+  "description": "spins up a server to receive time-series data via tcp streams and then graphs it in the browser via web-sockets",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,7 @@
     "ws": "*",
     "levelup": "*",
     "st": "*",
-    "event-stream": "~3.0.12"
+    "event-stream": "*"
   },
   "repository": "",
   "author": "",

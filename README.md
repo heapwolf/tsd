@@ -1,5 +1,5 @@
 # NAME
-stshttp(3)
+tsd-web(3)
 
 # SYNOPSIS
 Spin up a quick server to visualize time series data.
@@ -8,7 +8,7 @@ Spin up a quick server to visualize time series data.
 Deadly simple. just specify where you want it and what keys it should care about.
 
 ```js
-var tsd = require('tsd');
+var tsd = require('tsd-web');
 
 tsd({
   http: 80,
@@ -16,29 +16,34 @@ tsd({
 });
 ```
 
-Start pumping data into it.
+Write some dummy data to the socket (LINE DELIMITED!).
 ```js
 var net = require('net');
-var x = 10;
+var x = 0;
 var client = net.connect({ port: 9099 }, function() {
+
+  function write(json) {
+    client.write(JSON.stringify(json) + '\n');
+  }
   
   setInterval(function() {
 
-    x += x;
+    x++;
 
-    client.write(JSON.stringify({ key: 'a', value: Math.random() * x }) + '\n' );
-    client.write(JSON.stringify({ key: 'b', value: Math.random() * x }) + '\n' );
-    client.write(JSON.stringify({ key: 'c', value: Math.random() * x }) + '\n' );
-    client.write(JSON.stringify({ key: 'd', value: Math.random() * x }) + '\n' );
+    write({ key: 'hello',   value: (Math.random() + x) / 50 });
+    write({ key: 'goodbye', value: (Math.random() + x) / 20 });
+    write({ key: 'ohai', value: 1000 });
+    write({ key: 'neat-stuff', value: (Math.random() + x) / 10 });
 
   }, 150);
+
 });
 ```
 
-![Loqui](/screenshot.png)
+# WUT?
+![screenshot](/screenshot.png)
 
 # TODO
 This is a work in progress. Pull requests welcome.
 
  - Provide a way to flush the cache.
- - 
